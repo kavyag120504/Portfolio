@@ -2,100 +2,62 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { personalInfo, stats, education } from "@/lib/data";
-import { GraduationCap, MapPin, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Code, Cpu } from "lucide-react";
+import { personalInfo } from "@/lib/data";
 
 export default function About() {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="about" className="section pb-24">
-      <div className="container">
+    <section id="about" className="py-24 relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55 }}
+          transition={{ duration: 0.6 }}
+          className="bg-[var(--card)] border border-white/5 rounded-[2rem] p-8 lg:p-12 shadow-2xl relative overflow-hidden"
         >
-          {/* Header */}
-          <div className="mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-              About <span className="text-cyan-400">Me</span>
-            </h2>
-          </div>
+          {/* Subtle background glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-
+          <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
             {/* Left */}
-            <div className="flex flex-col gap-10">
-              <div className="flex flex-col gap-6">
-                <p className="text-slate-400 text-base sm:text-lg leading-relaxed">{personalInfo.summary}</p>
-              </div>
-
-              {/* Info rows */}
-              <div className="flex flex-col gap-5 pt-4">
-                {[
-                  { icon: MapPin, label: "Location", value: personalInfo.location },
-                  { icon: Mail, label: "Email", value: personalInfo.email },
-                  { icon: Phone, label: "Phone", value: personalInfo.phone },
-                  { icon: GraduationCap, label: "University", value: personalInfo.university },
-                ].map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="flex items-center gap-5">
-                    <div className="w-12 h-12 rounded-xl bg-[#0f172a] border border-[#1e293b] flex items-center justify-center shrink-0 shadow-inner">
-                      <Icon size={20} className="text-cyan-400" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">{label}</span>
-                      <span className="text-slate-200 text-base font-medium">{value}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-2 gap-6 pt-6">
-                {stats.map((stat) => (
-                  <div key={stat.label} className="card p-6 border border-[#1e293b] bg-[#0f172a]/50">
-                    <div className="text-3xl font-bold text-cyan-400 mb-2">{stat.value}</div>
-                    <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-col">
+              <h2 className="text-4xl sm:text-5xl font-black text-white mb-6 tracking-tight">
+                About Me
+              </h2>
+              <p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-md">
+                I'm Kavya Goswami, an engineering student with {personalInfo.summary.substring(personalInfo.summary.indexOf('with ') + 5) || "a passion for software engineering, cloud solutions, and artificial intelligence. I'm focused on creating innovative, reliable systems that help businesses thrive in the digital world."}
+              </p>
             </div>
 
-            {/* Right: Education */}
-            <div className="pt-4 lg:pt-0">
-              <div className="flex items-center gap-3 mb-10">
-                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
-                  <GraduationCap size={20} className="text-blue-500" />
+            {/* Right: Feature Boxes */}
+            <div className="flex flex-col gap-6">
+              {/* Box 1 */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6 p-6 rounded-2xl bg-black/40 border border-white/5 group hover:border-[var(--accent)]/30 transition-colors cursor-pointer">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-2)] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(217,70,239,0.3)]">
+                  <Code size={20} className="text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white tracking-tight">Education</h3>
+                <p className="text-slate-300 text-sm font-medium leading-relaxed flex-1">
+                  Build scalable web applications and mobile apps using React, Next.js, and Flutter.
+                </p>
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors shrink-0 self-end sm:self-auto">
+                  <ArrowUpRight size={16} className="text-white" />
+                </div>
               </div>
 
-              <div className="flex flex-col gap-6">
-                {education.map((edu, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.15 + i * 0.1 }}
-                    className="card p-8 bg-[#0f172a]/40 border-[#1e293b]"
-                  >
-                    <div className="flex flex-col gap-2">
-                      <h4 className="text-white text-lg font-bold leading-snug">{edu.degree}</h4>
-                      <p className="text-cyan-400 text-base font-medium">{edu.institution}</p>
-                      
-                      <div className="flex flex-wrap items-center gap-4 mt-2">
-                        <span className="text-slate-400 text-sm font-medium bg-[#0b1121] px-3 py-1 rounded-md border border-[#1e293b]">
-                          {edu.period}
-                        </span>
-                        <span className="text-blue-400 text-sm font-bold bg-blue-500/10 px-3 py-1 rounded-md border border-blue-500/20">
-                          {edu.score}
-                        </span>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+              {/* Box 2 */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6 p-6 rounded-2xl bg-black/40 border border-white/5 group hover:border-[var(--accent)]/30 transition-colors cursor-pointer">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent-2)] to-[#06b6d4] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(168,85,247,0.3)]">
+                  <Cpu size={20} className="text-white" />
+                </div>
+                <p className="text-slate-300 text-sm font-medium leading-relaxed flex-1">
+                  Design and deploy intelligent AI/ML models to solve complex, data-driven problems.
+                </p>
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors shrink-0 self-end sm:self-auto">
+                  <ArrowUpRight size={16} className="text-white" />
+                </div>
               </div>
             </div>
           </div>
