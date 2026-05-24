@@ -27,28 +27,11 @@ export default function Contact() {
           Let's Build<br/>Something<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent)] to-[var(--accent-3)]">Impactful.</span>
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-6 md:gap-12">
-          <a href={`mailto:${personalInfo.email}`} className="group relative text-2xl md:text-4xl font-bold text-white uppercase tracking-tight hover:text-[var(--accent)] transition-colors flex items-center gap-2">
-            Email <ArrowUpRight className="opacity-0 group-hover:opacity-100 transition-opacity" size={32} />
-          </a>
-          <a href={personalInfo.github} target="_blank" rel="noreferrer" className="group relative text-2xl md:text-4xl font-bold text-white uppercase tracking-tight hover:text-[var(--accent)] transition-colors flex items-center gap-2">
-            Github <ArrowUpRight className="opacity-0 group-hover:opacity-100 transition-opacity" size={32} />
-          </a>
-          <a href={personalInfo.linkedin} target="_blank" rel="noreferrer" className="group relative text-2xl md:text-4xl font-bold text-white uppercase tracking-tight hover:text-[var(--accent)] transition-colors flex items-center gap-2">
-            LinkedIn <ArrowUpRight className="opacity-0 group-hover:opacity-100 transition-opacity" size={32} />
-          </a>
-        </div>
-
-        <motion.a 
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="mt-20 px-12 py-5 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-bold tracking-[0.2em] uppercase text-sm hover:bg-white hover:text-black transition-colors duration-300"
-        >
-          View Resume
-        </motion.a>
+        <div className="flex justify-center gap-12 md:gap-24 text-white font-bold tracking-[0.2em] uppercase text-sm md:text-2xl mb-6">
+            <a href={`mailto:${personalInfo.email}`} className="hover:text-[var(--accent)] transition-colors">Email</a>
+            <a href={personalInfo.github} target="_blank" rel="noreferrer" className="hover:text-[var(--accent)] transition-colors">GitHub</a>
+            <a href={personalInfo.linkedin} target="_blank" rel="noreferrer" className="hover:text-[var(--accent)] transition-colors">LinkedIn</a>
+          </div>
         </motion.div>
       </div>
 

@@ -1,11 +1,34 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { GithubIcon } from "@/components/icons";
 
 export default function CodingProfiles() {
   const containerRef = useRef(null);
+  
+  const [lcStats, setLcStats] = useState({
+    total: 141,
+    easy: 56,
+    medium: 74,
+    hard: 11
+  });
+
+  useEffect(() => {
+    fetch("https://alfa-leetcode-api.onrender.com/kavyagoswami/solved")
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.solvedProblem !== undefined) {
+          setLcStats({
+            total: data.solvedProblem,
+            easy: data.easySolved || 0,
+            medium: data.mediumSolved || 0,
+            hard: data.hardSolved || 0
+          });
+        }
+      })
+      .catch(err => console.error("Failed to fetch LeetCode stats", err));
+  }, []);
   
   return (
     <section ref={containerRef} className="relative bg-[#050505] pt-40 pb-40 z-20 overflow-hidden border-t border-white/5">
@@ -75,7 +98,7 @@ export default function CodingProfiles() {
             </div>
           </motion.div>
 
-          {/* LeetCode Stats Mock */}
+          {/* LeetCode Stats Custom SVG */}
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -85,22 +108,72 @@ export default function CodingProfiles() {
           >
             <div className="absolute inset-0 bg-gradient-to-bl from-[#ffaa00]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             
-            <div className="relative z-10 text-center w-full h-full flex flex-col justify-center">
-              <span className="text-[#ffaa00] font-bold tracking-widest uppercase text-xs mb-6 block">LeetCode Analytics</span>
-              <a
-                href="https://leetcode.com/u/kavyagoswami/"
-                target="_blank"
-                rel="noreferrer"
-                className="block hover:opacity-90 transition-opacity"
-              >
-                <img
-                  src="https://leetcard.jacoblin.cool/kavyagoswami?theme=dark&font=Nunito&ext=heatmap&border=0&radius=12&width=400"
-                  alt="LeetCode Stats"
-                  className="w-full rounded-xl"
-                  loading="lazy"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                />
+            <div className="relative z-10 w-full h-full flex flex-col justify-center">
+              <span className="text-[#ffaa00] font-bold tracking-widest uppercase text-xs mb-8 block text-center">LeetCode Analytics</span>
+              
+              {/* Circular Graph */}
+              <a href="https://leetcode.com/u/kavyagoswami/" target="_blank" rel="noreferrer" className="relative w-40 h-40 mx-auto mb-8 flex items-center justify-center hover:scale-105 transition-transform group/link">
+                {/* Outer Ring */}
+                <svg className="absolute inset-0 w-full h-full -rotate-90">
+                  <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="8" />
+                  <circle cx="80" cy="80" r="70" fill="none" stroke="#ffaa00" strokeWidth="8" strokeDasharray="440" strokeDashoffset={440 - (440 * (lcStats.total / 500))} strokeLinecap="round" className="drop-shadow-[0_0_10px_#ffaa00] transition-all duration-1000 ease-out" />
+                </svg>
+                <div className="flex flex-col items-center">
+                  <span className="text-3xl font-black text-white tracking-tighter group-hover/link:text-[#ffaa00] transition-colors">
+                    {lcStats.total}
+                  </span>
+                  <span className="text-[10px] text-slate-500 font-mono tracking-widest">SOLVED</span>
+                </div>
               </a>
+
+              {/* Difficulty Bars */}
+              <div className="w-full space-y-4">
+                <div className="w-full">
+                  <div className="flex justify-between text-[10px] uppercase font-bold tracking-widest mb-1.5">
+                    <span className="text-green-400">Easy</span>
+                    <span className="text-slate-400 font-mono">{lcStats.easy}</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${(lcStats.easy / lcStats.total) * 100}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                      className="h-full bg-green-400" 
+                    />
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div className="flex justify-between text-[10px] uppercase font-bold tracking-widest mb-1.5">
+                    <span className="text-yellow-400">Medium</span>
+                    <span className="text-slate-400 font-mono">{lcStats.medium}</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${(lcStats.medium / lcStats.total) * 100}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.6 }}
+                      className="h-full bg-yellow-400" 
+                    />
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div className="flex justify-between text-[10px] uppercase font-bold tracking-widest mb-1.5">
+                    <span className="text-red-400">Hard</span>
+                    <span className="text-slate-400 font-mono">{lcStats.hard}</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${(lcStats.hard / lcStats.total) * 100}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.7 }}
+                      className="h-full bg-red-400" 
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
 
