@@ -1,5 +1,7 @@
 # Kavya Goswami — Portfolio
 
+**🌐 Live Demo: [portfolio-one-mauve-32.vercel.app](https://portfolio-one-mauve-32.vercel.app)**
+
 A premium developer portfolio built with **Next.js 16**, **TypeScript**, **Tailwind CSS v4**, and **Framer Motion**.
 
 ## 🚀 Getting Started
