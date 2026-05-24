@@ -85,53 +85,22 @@ export default function CodingProfiles() {
           >
             <div className="absolute inset-0 bg-gradient-to-bl from-[#ffaa00]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             
-            <div className="relative z-10 text-center w-full">
-              <span className="text-[#ffaa00] font-bold tracking-widest uppercase text-xs mb-8 block">LeetCode Analytics</span>
-              
-              {/* Circular Graph */}
-              <a href="https://leetcode.com/u/kavyagoswami/" target="_blank" rel="noreferrer" className="relative w-40 h-40 mx-auto mb-8 flex items-center justify-center hover:scale-105 transition-transform group/link">
-                {/* Outer Ring */}
-                <svg className="absolute inset-0 w-full h-full -rotate-90">
-                  <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="8" />
-                  <circle cx="80" cy="80" r="70" fill="none" stroke="#ffaa00" strokeWidth="8" strokeDasharray="440" strokeDashoffset="250" strokeLinecap="round" className="drop-shadow-[0_0_10px_#ffaa00]" />
-                </svg>
-                <div className="flex flex-col items-center">
-                  <span className="text-3xl font-black text-white tracking-tighter group-hover/link:text-[#ffaa00] transition-colors">138</span>
-                  <span className="text-[10px] text-slate-500 font-mono tracking-widest">SOLVED</span>
-                </div>
+            <div className="relative z-10 text-center w-full h-full flex flex-col justify-center">
+              <span className="text-[#ffaa00] font-bold tracking-widest uppercase text-xs mb-6 block">LeetCode Analytics</span>
+              <a
+                href="https://leetcode.com/u/kavyagoswami/"
+                target="_blank"
+                rel="noreferrer"
+                className="block hover:opacity-90 transition-opacity"
+              >
+                <img
+                  src="https://leetcard.jacoblin.cool/kavyagoswami?theme=dark&font=Nunito&ext=heatmap&border=0&radius=12&width=400"
+                  alt="LeetCode Stats"
+                  className="w-full rounded-xl"
+                  loading="lazy"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                />
               </a>
-
-              {/* Difficulty Bars */}
-              <div className="w-full space-y-4">
-                <div className="w-full">
-                  <div className="flex justify-between text-[10px] uppercase font-bold tracking-widest mb-1.5">
-                    <span className="text-green-400">Easy</span>
-                    <span className="text-slate-400 font-mono">56</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-green-400 w-[40%]" />
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div className="flex justify-between text-[10px] uppercase font-bold tracking-widest mb-1.5">
-                    <span className="text-yellow-400">Medium</span>
-                    <span className="text-slate-400 font-mono">71</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-yellow-400 w-[51%]" />
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div className="flex justify-between text-[10px] uppercase font-bold tracking-widest mb-1.5">
-                    <span className="text-red-400">Hard</span>
-                    <span className="text-slate-400 font-mono">11</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-red-400 w-[9%]" />
-                  </div>
-                </div>
-              </div>
-
             </div>
           </motion.div>
 
